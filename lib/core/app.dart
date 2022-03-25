@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/core/routes/routes.dart';
-import 'package:flutter_sbf/modules/splash/routes.dart';
+import 'package:flutter_sbf/modules/home/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatelessWidget {
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: routeSplash.name,
+        initialRoute: routeHome.name,
         onGenerateRoute: RouteGenerator.generateRoute,
         builder: (context, widget) {
           //add this line
