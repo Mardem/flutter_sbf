@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_sbf/modules/auth/src/presentation/login/components/shape_bottom.dart';
-import 'package:flutter_sbf/modules/auth/src/presentation/login/components/shape_top.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;
@@ -26,8 +24,6 @@ class MainLayout extends StatelessWidget {
           child: Stack(
             children: [
               Container(height: ScreenUtil().screenHeight),
-              const ShapeTopStack(),
-              const ShapeBottomStack(),
               activeBack
                   ? Positioned(
                       left: 0,
