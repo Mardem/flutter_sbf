@@ -8,7 +8,7 @@ InputDecoration inputDecoration({
 }) {
   return InputDecoration(
     border: InputBorder.none,
-    hintText: ' ' + hint,
+    hintText: ' $hint',
     hintStyle: const TextStyle(
       fontStyle: FontStyle.italic,
     ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppInput extends StatelessWidget {
-  final InputDecoration? decoration;
-
   const AppInput({Key? key, required this.decoration}) : super(key: key);
+
+  final InputDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {

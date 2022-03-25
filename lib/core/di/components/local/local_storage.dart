@@ -9,8 +9,7 @@ abstract class LocalStorage {
 class SharePreferencesImpl implements LocalStorage {
   late SharedPreferences? _prefs;
 
-  Future<dynamic> _getInstance() async =>
-      _prefs = await SharedPreferences.getInstance();
+  Future<dynamic> _getInstance() async => _prefs = await SharedPreferences.getInstance();
 
   @override
   Future<String?> get(String key) async {
@@ -19,13 +18,13 @@ class SharePreferencesImpl implements LocalStorage {
   }
 
   @override
-  void set(String key, dynamic value) async {
+  Future<void> set(String key, dynamic value) async {
     await _getInstance();
-    _prefs?.setString(key, value);
+    _prefs?.setString(key, value as String);
   }
 
   @override
-  void remove(String key) async {
+  Future<void> remove(String key) async {
     await _getInstance();
     _prefs?.remove(key);
   }

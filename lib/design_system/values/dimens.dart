@@ -1,4 +1,4 @@
-//MARGIN 
+//MARGIN
 
 const double marginDefault = 16.0;
 const double elevation = 6.0;
@@ -15,4 +15,3 @@ const double fontTextSmaller = 12.0;
 
 const double fontEditText = 14.0;
 const double fontButton = 14.0;
-

@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
 
 class AppButton extends StatelessWidget {
-  final GestureTapCallback? onPressed;
-  final Widget? child;
-  final EdgeInsets? padding;
-  final double? elevation;
-  final double? radius;
-  final dynamic backgroundColor;
-
   const AppButton({
     Key? key,
     this.onPressed,
@@ -20,15 +12,18 @@ class AppButton extends StatelessWidget {
     this.radius,
   }) : super(key: key);
 
+  final GestureTapCallback? onPressed;
+  final Widget? child;
+  final EdgeInsets? padding;
+  final double? elevation;
+  final double? radius;
+  final dynamic backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(0),
-        child: child,
-      ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(backgroundColor ?? Colors.white),
+        backgroundColor: MaterialStateProperty.all((backgroundColor as Color?) ?? Colors.white),
         elevation: MaterialStateProperty.all(elevation ?? 2),
         side: MaterialStateProperty.all<BorderSide>(
           const BorderSide(
@@ -42,12 +37,10 @@ class AppButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
+      child: Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: child,
+      ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('backgroundColor', backgroundColor));
   }
 }
