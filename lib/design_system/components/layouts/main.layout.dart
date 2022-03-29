@@ -16,6 +16,7 @@ class MainLayout extends StatelessWidget {
       color: Theme.of(context).colorScheme.onPrimary,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: child,
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/core/di/inject.dart';
 import 'package:flutter_sbf/design_system/components/layouts/main.layout.dart';
@@ -65,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   rating: 4.5,
                   freeShipping: true,
                   title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => print('as'),
+                  onPressed: () => log('as'),
                 ),
                 AppCardHome(
                   price: 199.99,
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   rating: 4.5,
                   freeShipping: true,
                   title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => print('as'),
+                  onPressed: () => log('as'),
                 ),
                 AppCardHome(
                   price: 199.99,
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                   rating: 4.5,
                   freeShipping: true,
                   title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => print('as'),
+                  onPressed: () => log('as'),
                 ),
               ],
             ),
