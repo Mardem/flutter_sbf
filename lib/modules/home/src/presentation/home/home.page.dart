@@ -42,23 +42,57 @@ class _HomePageState extends State<HomePage> {
           SliverGrid(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: .57,
+              childAspectRatio: .52,
             ),
             delegate: SliverChildListDelegate(
               <Widget>[
-                const AppCardHome(),
-                const AppCardHome(),
-                const AppCardHome(),
-                const AppCardHome(),
+                AppCardHome(
+                  price: 199.99,
+                  olderPrice: 299.99,
+                  discountPercent: 30,
+                  quantityRatings: 5,
+                  rating: 4.5,
+                  freeShipping: true,
+                  title: 'Tênis New Balance ML501 - Masculino',
+                  onPressed: () => print('as'),
+                ),
+                AppCardHome(
+                  price: 199.99,
+                  olderPrice: 299.99,
+                  discountPercent: 30,
+                  quantityRatings: 5,
+                  rating: 4.5,
+                  freeShipping: true,
+                  title: 'Tênis New Balance ML501 - Masculino',
+                  onPressed: () => print('as'),
+                ),
+                AppCardHome(
+                  price: 199.99,
+                  olderPrice: 299.99,
+                  discountPercent: 30,
+                  quantityRatings: 5,
+                  rating: 4.5,
+                  freeShipping: true,
+                  title: 'Tênis New Balance ML501 - Masculino',
+                  onPressed: () => print('as'),
+                ),
+                AppCardHome(
+                  price: 199.99,
+                  olderPrice: 299.99,
+                  discountPercent: 30,
+                  quantityRatings: 5,
+                  rating: 4.5,
+                  freeShipping: true,
+                  title: 'Tênis New Balance ML501 - Masculino',
+                  onPressed: () => print('as'),
+                ),
               ],
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               <Widget>[
-                SizedBox(
-                  height: 60.w,
-                ),
+                SizedBox(height: 60.w),
                 Container(
                   alignment: Alignment.center,
                   color: DefaultColors.neutral,

@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+import 'app_customer_feedback_start.dart';
 
 class AppCardHome extends StatelessWidget {
-  const AppCardHome({Key? key}) : super(key: key);
+  const AppCardHome({
+    required this.onPressed,
+    required this.title,
+    required this.price,
+    this.discountPercent,
+    this.freeShipping,
+    this.olderPrice,
+    this.rating = 0,
+    this.quantityRatings,
+    this.quantityColors,
+    Key? key,
+  }) : super(key: key);
+
+  final Function() onPressed;
+  final double? discountPercent;
+  final bool? freeShipping;
+  final String title;
+  final double price;
+  final double? olderPrice;
+  final double rating;
+  final int? quantityRatings;
+  final int? quantityColors;
 
   @override
   Widget build(BuildContext context) {
@@ -22,86 +46,114 @@ class AppCardHome extends StatelessWidget {
           Container(
             height: 150,
             decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4),
               image: DecorationImage(
                 image: Image.asset(
                   'images/product.png',
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                 ).image,
               ),
             ),
+            child: Stack(
+              children: <Widget>[
+                if (discountPercent != null)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: DefaultColors.brand,
+                        ),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: Text(
+                        '${discountPercent!.round()}%',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: DefaultColors.brand,
+                        ),
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          ),
+          if (freeShipping != null)
+            Container(
+              width: size.width,
+              decoration: BoxDecoration(
+                color: DefaultColors.neutral600,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.symmetric(vertical: 3),
+              child: const Text(
+                'Frete grátis',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(title),
           ),
           Container(
-            width: size.width,
-            decoration: BoxDecoration(
-              color: DefaultColors.neutral600,
-              borderRadius: BorderRadius.circular(2),
-            ),
-            padding: const EdgeInsets.all(4),
-            margin: const EdgeInsets.symmetric(vertical: 3),
-            child: const Text(
-              'Frete grátis',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          const Text('Tênis New Balance ML501 - Masculino'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const <Widget>[
-              Text(
-                r'R$ 199,99',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  NumberFormat.currency(locale: 'pt_BR', symbol: r'R$').format(price),
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-              Text(
-                r'R$ 299,99',
-                style: TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                ),
-              ),
-            ],
+                if (olderPrice != null)
+                  Text(
+                    NumberFormat.currency(locale: 'pt_BR', symbol: r'R$').format(olderPrice),
+                    style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      fontSize: 10.sp,
+                    ),
+                  ),
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                children: const <Widget>[
-                  Icon(Icons.star, color: DefaultColors.brand),
-                  Icon(Icons.star, color: DefaultColors.brand),
-                  Icon(Icons.star, color: DefaultColors.brand),
-                  Icon(Icons.star, color: DefaultColors.brand),
-                ],
-              ),
-              const Text('(1954)'),
+              if (rating != null) AppCustomerFeedbackStar(rating: rating),
+              if (quantityRatings != null) Text('($quantityRatings)'),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.all(4),
-            color: DefaultColors.neutral,
-            child: const Text('5 cores'),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor: MaterialStateProperty.all<Color>(DefaultColors.brand),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    side: const BorderSide(color: DefaultColors.brand),
-                  ),
-                ),
+          if (quantityColors != null)
+            Container(
+              padding: const EdgeInsets.all(4),
+              color: DefaultColors.neutral,
+              child: Text(quantityColors! > 1 ? '$quantityColors cores' : '$quantityColors cor'),
+            ),
+          const SizedBox(height: 12),
+          GestureDetector(
+            onTap: onPressed,
+            child: Container(
+              alignment: Alignment.center,
+              width: double.maxFinite,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: DefaultColors.brand,
+                borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 'Comprar',
                 style: TextStyle(
                   fontSize: 18.sp,
+                  color: Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              onPressed: () => print('Comprar'),
             ),
           )
         ],
