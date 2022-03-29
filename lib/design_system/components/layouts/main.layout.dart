@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sbf/design_system/components/ui/app_header.dart';
 
 class MainLayout extends StatelessWidget {
   const MainLayout({
+    required this.child,
     this.activeBack = false,
     Key? key,
   }) : super(key: key);
 
   final bool activeBack;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: const <Widget>[
-              AppHeader(),
-            ],
-          ),
-        ),
+        body: child,
       ),
     );
   }
