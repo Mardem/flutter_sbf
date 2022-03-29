@@ -12,9 +12,12 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: child,
+    return Container(
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: SafeArea(
+        child: Scaffold(
+          body: child,
+        ),
       ),
     );
   }

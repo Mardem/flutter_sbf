@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/core/views/page_not_found.page.dart';
+import 'package:flutter_sbf/modules/cart/routes.dart';
 import 'package:flutter_sbf/modules/home/routes.dart';
 import 'package:flutter_sbf/modules/splash/routes.dart';
 
@@ -15,6 +16,7 @@ import 'anim/nav_slide_from_top.dart';
 
 final List<AppRoute> routes = <AppRoute>[
   ...routesHomeModule,
+  ...routesCartModule,
   ...routesSplashModule,
 ];
 

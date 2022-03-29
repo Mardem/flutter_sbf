@@ -4,6 +4,7 @@ import 'package:flutter_sbf/design_system/components/layouts/main.layout.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_card_home.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_header.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
+import 'package:flutter_sbf/modules/cart/routes.dart';
 import 'package:flutter_sbf/modules/home/src/presentation/home/home.viewmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   rating: 4.5,
                   freeShipping: true,
                   title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => print('as'),
+                  onPressed: () => Navigator.pushNamed(context, routeCart.name),
                 ),
                 AppCardHome(
                   price: 199.99,
