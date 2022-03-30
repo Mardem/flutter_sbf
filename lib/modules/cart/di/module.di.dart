@@ -1,13 +1,13 @@
 import 'package:flutter_sbf/core/di/inject.dart';
-import 'package:flutter_sbf/modules/home/src/presentation/home/home.viewmodel.dart';
+import 'package:flutter_sbf/modules/cart/src/presentation/home/cart.viewmodel.dart';
 
-Future<void> startHomeModules() async {
+Future<void> startCartModules() async {
   // Interactors
 
   // Repositories
 
   // ViewModels
-  inject.registerSingleton<HomeViewModel>(HomeViewModel());
+  inject.registerSingleton<CartViewModel>(CartViewModel());
 
   // Services
 }

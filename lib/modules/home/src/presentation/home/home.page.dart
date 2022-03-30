@@ -5,6 +5,7 @@ import 'package:flutter_sbf/design_system/components/ui/app_card_home.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_header.dart';
 import 'package:flutter_sbf/design_system/components/ui/shimmers/app_card_home.shimmer.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
+import 'package:flutter_sbf/modules/cart/src/presentation/home/cart.viewmodel.dart';
 import 'package:flutter_sbf/modules/home/src/data/remote/mappers/product.mapper.dart';
 import 'package:flutter_sbf/modules/home/src/presentation/home/home.viewmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeViewModel _vm = inject<HomeViewModel>();
+  final CartViewModel _vmCart = inject<CartViewModel>();
 
   @override
   void initState() {
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           SliverList(
             delegate: SliverChildListDelegate(
               <Widget>[
-                const AppHeader(),
+                AppHeader(),
                 const BannerHomeComponent(),
                 Container(
                   alignment: Alignment.center,
@@ -88,7 +90,9 @@ class _HomePageState extends State<HomePage> {
                       freeShipping: item.freeShipping,
                       title: item.name,
                       imagePath: item.image,
-                      onPressed: () => print(item.name),
+                      onPressed: () {
+                        _vmCart.selectProduct(product: item);
+                      },
                     );
                   }).toList(),
                 ),

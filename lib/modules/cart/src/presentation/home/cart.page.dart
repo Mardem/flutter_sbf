@@ -21,10 +21,10 @@ class _CartPageState extends State<CartPage> {
     return MainLayout(
       activeBottomLogo: true,
       child: ListView(
-        children: const <Widget>[
+        children: <Widget>[
           AppHeader(),
-          SizedBox(height: 20),
-          CartNoContentComponent(),
+          const SizedBox(height: 20),
+          const CartNoContentComponent(),
         ],
       ),
     );

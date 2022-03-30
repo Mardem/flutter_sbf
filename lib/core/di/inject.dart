@@ -1,5 +1,6 @@
 import 'package:flutter_sbf/core/di/components/local/local_storage.dart';
 import 'package:flutter_sbf/core/utils/connection.util.dart';
+import 'package:flutter_sbf/modules/cart/di/module.di.dart';
 import 'package:flutter_sbf/modules/home/di/module.di.dart';
 import 'package:get_it/get_it.dart';
 
@@ -13,4 +14,5 @@ Future<void> startModules() async {
   inject.registerSingleton<ConnectionUtil>(ConnectionUtil());
 
   startHomeModules();
+  startCartModules();
 }
