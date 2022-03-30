@@ -17,4 +17,7 @@ abstract class DefaultColors {
   static const Color neutral = Color.fromRGBO(247, 247, 247, 1);
   static const Color neutral300 = Color.fromRGBO(214, 214, 214, 1);
   static const Color neutral600 = Color.fromRGBO(77, 77, 77, 1);
+
+  static const Color shimmerBaseColor = Color(0xFFD4D2D6);
+  static const Color shimmerHighlightColor = Color(0xFFF5F5F5);
 }

@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/core/di/inject.dart';
 import 'package:flutter_sbf/design_system/components/layouts/main.layout.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_card_home.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_header.dart';
+import 'package:flutter_sbf/design_system/components/ui/shimmers/app_card_home.shimmer.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
-import 'package:flutter_sbf/modules/cart/routes.dart';
+import 'package:flutter_sbf/modules/home/src/data/remote/mappers/product.mapper.dart';
 import 'package:flutter_sbf/modules/home/src/presentation/home/home.viewmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +19,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeViewModel vm = inject<HomeViewModel>();
+  final HomeViewModel _vm = inject<HomeViewModel>();
+
+  @override
+  void initState() {
+    _vm.getPromotions();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,55 +47,53 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: .52,
-            ),
-            delegate: SliverChildListDelegate(
-              <Widget>[
-                AppCardHome(
-                  price: 199.99,
-                  olderPrice: 299.99,
-                  discountPercent: 30,
-                  quantityRatings: 5,
-                  rating: 4.5,
-                  freeShipping: true,
-                  title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => Navigator.pushNamed(context, routeCart.name),
+          StreamBuilder<List<ProductMapper>?>(
+            stream: _vm.products,
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<ProductMapper>?> snapshot,
+            ) {
+              if (snapshot.data == null) {
+                return SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: .72,
+                  ),
+                  delegate: SliverChildListDelegate(
+                    const <Widget>[
+                      AppCardHomeShimmer(),
+                      AppCardHomeShimmer(),
+                      AppCardHomeShimmer(),
+                      AppCardHomeShimmer(),
+                      AppCardHomeShimmer(),
+                      AppCardHomeShimmer(),
+                    ],
+                  ),
+                );
+              }
+
+              return SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: .52,
                 ),
-                AppCardHome(
-                  price: 199.99,
-                  olderPrice: 299.99,
-                  discountPercent: 30,
-                  quantityRatings: 5,
-                  rating: 4.5,
-                  freeShipping: true,
-                  title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => log('as'),
+                delegate: SliverChildListDelegate(
+                  snapshot.data!.map((ProductMapper item) {
+                    return AppCardHome(
+                      price: item.price,
+                      olderPrice: item.oldPrice,
+                      discountPercent: item.discount.toDouble(),
+                      quantityRatings: item.reviews,
+                      rating: item.rate.toDouble(),
+                      freeShipping: item.freeShipping,
+                      title: item.name,
+                      imagePath: item.image,
+                      onPressed: () => print(item.name),
+                    );
+                  }).toList(),
                 ),
-                AppCardHome(
-                  price: 199.99,
-                  olderPrice: 299.99,
-                  discountPercent: 30,
-                  quantityRatings: 5,
-                  rating: 4.5,
-                  freeShipping: true,
-                  title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => log('as'),
-                ),
-                AppCardHome(
-                  price: 199.99,
-                  olderPrice: 299.99,
-                  discountPercent: 30,
-                  quantityRatings: 5,
-                  rating: 4.5,
-                  freeShipping: true,
-                  title: 'Tênis New Balance ML501 - Masculino',
-                  onPressed: () => log('as'),
-                ),
-              ],
-            ),
+              );
+            },
           ),
           SliverList(
             delegate: SliverChildListDelegate(

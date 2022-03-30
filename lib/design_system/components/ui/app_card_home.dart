@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'app_customer_feedback_start.dart';
 
@@ -16,6 +18,7 @@ class AppCardHome extends StatelessWidget {
     this.rating = 0,
     this.quantityRatings,
     this.quantityColors,
+    this.imagePath,
     Key? key,
   }) : super(key: key);
 
@@ -28,6 +31,7 @@ class AppCardHome extends StatelessWidget {
   final double rating;
   final int? quantityRatings;
   final int? quantityColors;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +48,26 @@ class AppCardHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
+            width: size.width,
             height: 150,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4),
-              image: DecorationImage(
-                image: Image.asset(
-                  'images/product.png',
-                  fit: BoxFit.cover,
-                ).image,
-              ),
             ),
             child: Stack(
               children: <Widget>[
+                CachedNetworkImage(
+                  imageUrl: imagePath ?? '',
+                  fit: BoxFit.fitHeight,
+                  placeholder: (BuildContext context, String url) => Shimmer.fromColors(
+                    baseColor: DefaultColors.shimmerBaseColor,
+                    highlightColor: DefaultColors.shimmerHighlightColor,
+                    child: Container(
+                      color: Colors.black,
+                      margin: const EdgeInsets.all(4),
+                    ),
+                  ),
+                ),
                 if (discountPercent != null)
                   Positioned(
                     right: 0,
@@ -97,7 +108,7 @@ class AppCardHome extends StatelessWidget {
             ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(title),
+            child: Text(title, style: TextStyle(fontSize: 13.sp)),
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -107,7 +118,7 @@ class AppCardHome extends StatelessWidget {
                 Text(
                   NumberFormat.currency(locale: 'pt_BR', symbol: r'R$').format(price),
                   style: TextStyle(
-                    fontSize: 17.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

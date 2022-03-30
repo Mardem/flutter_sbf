@@ -79,7 +79,8 @@ class CartNoContentComponent extends StatelessWidget {
                   fontSize: 18.sp,
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 20)
           ],
         ),
       ),
