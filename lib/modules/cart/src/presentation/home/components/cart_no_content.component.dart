@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sbf/design_system/components/ui/app_header.dart';
 import 'package:flutter_sbf/design_system/values/colors.dart';
+import 'package:flutter_sbf/modules/home/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartNoContentComponent extends StatelessWidget {
@@ -69,19 +70,23 @@ class CartNoContentComponent extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 24),
-                  margin: EdgeInsets.only(top: 16.w),
-                  decoration: BoxDecoration(
-                    color: DefaultColors.brand,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    'Comece a comprar',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: 18.sp,
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamedAndRemoveUntil(context, routeHome.name, (_) => false),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 24),
+                    margin: EdgeInsets.only(top: 16.w),
+                    decoration: BoxDecoration(
+                      color: DefaultColors.brand,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      'Comece a comprar',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                      ),
                     ),
                   ),
                 ),

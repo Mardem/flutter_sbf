@@ -24,9 +24,10 @@ class ProductServiceImpl implements ProductService {
       final List<ProductMapper> data = productMapperFromJson(req.data);
 
       response
-        ..isSuccess = false
+        ..isSuccess = true
         ..data = data
-        ..message = '';
+        ..message = ProductServiceMessages.successPromotions
+        ..statusCode = HttpStatus.success;
     } catch (e, stackTrace) {
       log(e.toString());
       log(stackTrace.toString());
@@ -34,8 +35,15 @@ class ProductServiceImpl implements ProductService {
       response
         ..isSuccess = false
         ..data = <ProductMapper>[]
-        ..message = '';
+        ..message = ProductServiceMessages.errorPromotions;
     }
     return response;
   }
+}
+
+class ProductServiceMessages {
+  const ProductServiceMessages();
+
+  static String successPromotions = 'Promoções carregadas com sucesso!';
+  static String errorPromotions = 'Não foi possível carregar as promoções.';
 }

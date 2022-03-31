@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_sbf">
    <application
-        android:label="flutter_sbf"
+        android:label="Flutter SBF"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
