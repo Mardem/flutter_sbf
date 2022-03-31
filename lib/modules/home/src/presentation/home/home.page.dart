@@ -90,9 +90,7 @@ class _HomePageState extends State<HomePage> {
                       freeShipping: item.freeShipping,
                       title: item.name,
                       imagePath: item.image,
-                      onPressed: () {
-                        _vmCart.selectProduct(product: item);
-                      },
+                      onPressed: () =>_vmCart.selectProduct(product: item),
                     );
                   }).toList(),
                 ),
