@@ -63,7 +63,7 @@ Para instalar o Vibbra! Notifications, siga estas etapas:
 
 Linux, macOS e Windows:
 ```  
-git clone https://git.vibbra.com.br/marden/mobile-notifications.git && (cd mobile-notifications && flutter pub get)  
+git clone git@github.com:Mardem/flutter_sbf.git && (cd flutter_sbf && flutter pub get)  
 ```  
 
 *O projeto foi criado utilizando o emulador do MacOS, ou seja, já está apto a rodar tanto em Android quanto iOS.*
