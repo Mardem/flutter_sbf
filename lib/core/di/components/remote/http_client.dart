@@ -1,58 +1,117 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_sbf/core/base/urls.dart';
+import 'package:flutter_sbf/core/di/components/local/keys.dart';
+import 'package:flutter_sbf/core/di/components/local/local_storage.dart';
+import 'package:flutter_sbf/core/di/inject.dart';
 
 abstract class HttpClient {
-  Future<Response> get(String url, {bool useToken = true});
-  Future<Response> post(String url, {dynamic body, bool useToken = true});
-  Future<Response> put(String url, {dynamic body, bool useToken = true});
-  Future<Response> patch(String url, {dynamic body, bool useToken = true});
-  Future<Response> delete(String url, {bool useToken = true});
+  Future<Response<dynamic>> auth(String login, String password);
+
+  Future<Response<T>> get<T>(
+    String url, {
+    bool useToken = true,
+  });
+
+  Future<Response<T>> post<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  });
+
+  Future<Response<T>> put<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  });
+
+  Future<Response<T>> patch<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  });
+
+  Future<Response<T>> delete<T>(
+    String url, {
+    bool useToken = true,
+  });
 }
 
 class DioImpl implements HttpClient {
-  final _client = Dio();
+  final LocalStorage localDataSource = inject<LocalStorage>();
+  final Dio _client = Dio();
 
   Future<void> _interceptor({bool useToken = true}) async {
-    Map<String, dynamic> headers = {};
+    final String? storageToken = await localDataSource.get(LocalAppKeys.token);
+
+    final Map<String, dynamic> headers = <String, dynamic>{};
 
     headers['Content-Type'] = 'application/json';
 
-    if (useToken == true) {
-      headers['Authorization'] = "Basic TOKEN";
+    if (useToken == true && storageToken != null) {
+      headers['Authorization'] = 'Basic $storageToken';
     }
 
     _client.options.headers = headers;
   }
 
   @override
-  Future<Response> get(String url, {bool useToken = true}) async {
-    await _interceptor(useToken: useToken);
-    return _client.get(url);
+  Future<Response<dynamic>> auth(String login, String password, {String? url}) async {
+    await _interceptor(useToken: false);
+
+    final Map<String, String> payload = <String, String>{
+      'email': login,
+      'senha': password,
+    };
+
+    return _client.post(url ?? BaseUrls.host, data: payload);
   }
 
   @override
-  Future<Response> post(String url,
-      {dynamic body, bool useToken = true}) async {
+  Future<Response<T>> get<T>(
+    String url, {
+    bool useToken = true,
+  }) async {
     await _interceptor(useToken: useToken);
-    return _client.post(url, data: body);
+    return _client.get<T>(url);
   }
 
   @override
-  Future<Response> put(String url, {dynamic body, bool useToken = true}) async {
+  Future<Response<T>> post<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  }) async {
     await _interceptor(useToken: useToken);
-    return _client.put(url, data: body);
+    return _client.post<T>(url, data: body);
   }
 
   @override
-  Future<Response> patch(String url,
-      {dynamic body, bool useToken = true}) async {
+  Future<Response<T>> put<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  }) async {
     await _interceptor(useToken: useToken);
-    return _client.put(url, data: body);
+    return _client.put<T>(url, data: body);
   }
 
   @override
-  Future<Response> delete(String url,
-      {dynamic body, bool useToken = true}) async {
+  Future<Response<T>> patch<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  }) async {
     await _interceptor(useToken: useToken);
-    return _client.delete(url);
+    return _client.put<T>(url, data: body);
+  }
+
+  @override
+  Future<Response<T>> delete<T>(
+    String url, {
+    dynamic body,
+    bool useToken = true,
+  }) async {
+    await _interceptor(useToken: useToken);
+    return _client.delete<T>(url);
   }
 }
