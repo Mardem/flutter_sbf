@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
               return SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: .52,
+                  childAspectRatio: .50,
                 ),
                 delegate: SliverChildListDelegate(
                   snapshot.data!.map((ProductMapper item) {
@@ -88,9 +88,10 @@ class _HomePageState extends State<HomePage> {
                       quantityRatings: item.reviews,
                       rating: item.rate.toDouble(),
                       freeShipping: item.freeShipping,
+                      quantityColors: item.colors,
                       title: item.name,
                       imagePath: item.image,
-                      onPressed: () =>_vmCart.selectProduct(product: item),
+                      onPressed: () => _vmCart.selectProduct(product: item),
                     );
                   }).toList(),
                 ),
