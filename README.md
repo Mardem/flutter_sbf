@@ -57,9 +57,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 * Você instalou a versão mais recente do `Flutter (2.8.1)`
 * Você instalou a versão mais recente do `Dart (2.15.1)`
 
-## 🚀 Instalando Vibbra! Notifications
+## 🚀 Instalando
 
-Para instalar o Vibbra! Notifications, siga estas etapas:
+Para instalar, siga estas etapas:
 
 Linux, macOS e Windows:
 ```  
